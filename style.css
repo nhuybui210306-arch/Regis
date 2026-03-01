@@ -746,3 +746,47 @@ nav ul li a:hover {
         right: 20px;
     }
 }
+/* Thêm vào cuối file style.css */
+
+/* User info với nút đăng xuất */
+.user-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.user-info button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    margin-left: 15px;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-info button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.user-info button i {
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .user-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .user-info button {
+        margin-left: 0;
+    }
+}
