@@ -149,3 +149,57 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!-- Thêm ngay sau <body> -->
+<script>
+    // Kiểm tra đăng nhập
+    (function() {
+        const currentUser = localStorage.getItem('2n1_current_user');
+        
+        if (!currentUser) {
+            // Chưa đăng nhập, chuyển về trang đăng ký
+            window.location.href = 'register.html';
+        } else {
+            const user = JSON.parse(currentUser);
+            if (!user.loggedIn) {
+                window.location.href = 'register.html';
+            } else {
+                // Hiển thị tên người dùng
+                document.addEventListener('DOMContentLoaded', function() {
+                    const usernameElement = document.getElementById('username');
+                    if (usernameElement) {
+                        usernameElement.textContent = user.name;
+                    }
+                    
+                    // Thêm nút đăng xuất
+                    const userInfo = document.querySelector('.user-info');
+                    if (userInfo) {
+                        const logoutBtn = document.createElement('button');
+                        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Đăng xuất';
+                        logoutBtn.style.cssText = `
+                            margin-left: 15px;
+                            background: rgba(255,255,255,0.2);
+                            border: none;
+                            color: white;
+                            padding: 8px 15px;
+                            border-radius: 50px;
+                            cursor: pointer;
+                            font-size: 14px;
+                            transition: all 0.3s;
+                        `;
+                        logoutBtn.onmouseover = function() {
+                            this.style.background = 'rgba(255,255,255,0.3)';
+                        };
+                        logoutBtn.onmouseout = function() {
+                            this.style.background = 'rgba(255,255,255,0.2)';
+                        };
+                        logoutBtn.onclick = function() {
+                            localStorage.removeItem('2n1_current_user');
+                            window.location.href = 'register.html';
+                        };
+                        userInfo.appendChild(logoutBtn);
+                    }
+                });
+            }
+        }
+    })();
+</script>
