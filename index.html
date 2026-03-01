@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2N1 - Quản Lý Thời Gian Hiệu Quả</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-clock"></i>
+                    <span>2N1</span> - Quản Lý Thời Gian
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Trang Chủ</a></li>
+                        <li><a href="#"><i class="fas fa-tasks"></i> Nhiệm Vụ</a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar"></i> Thống Kê</a></li>
+                        <li><a href="#" id="settings-link"><i class="fas fa-cog"></i> Cài Đặt</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info" id="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="username">Người Dùng 2N1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Left Column: Today's Tasks -->
+            <div class="today-tasks">
+                <div class="section-title">
+                    <i class="fas fa-calendar-day"></i> 
+                    <div>Nhiệm Vụ Hôm Nay</div>
+                    <div style="margin-left: auto; font-size: 16px;">
+                        <button id="change-date-btn" class="btn secondary-btn">
+                            <i class="fas fa-calendar-alt"></i> Đổi ngày
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="date-info">
+                    <div class="current-date" id="current-date">
+                        <i class="fas fa-calendar-alt"></i> Đang tải...
+                    </div>
+                    <div class="tasks-summary">
+                        Đã hoàn thành: <span id="completed-count">0</span>/<span id="total-count">0</span> nhiệm vụ
+                    </div>
+                </div>
+                
+                <div class="time-slots" id="time-slots-container">
+                    <!-- Nội dung được tải bởi JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Right Column: Pomodoro and Stats -->
+            <div class="right-column">
+                <!-- Pomodoro Timer -->
+                <div class="pomodoro-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-hourglass-half"></i> Phương Pháp Pomodoro
+                    </h2>
+                    
+                    <div class="pomodoro-timer">
+                        <div class="timer-label">Phiên Làm Việc</div>
+                        <div class="timer-display" id="timer">25:00</div>
+                        <div class="timer-label" id="session-type">Sẵn sàng làm việc</div>
+                        
+                        <div class="timer-controls">
+                            <button class="btn btn-start" id="start-btn">
+                                <i class="fas fa-play"></i> Bắt Đầu
+                            </button>
+                            <button class="btn btn-pause" id="pause-btn" disabled>
+                                <i class="fas fa-pause"></i> Tạm Dừng
+                            </button>
+                            <button class="btn btn-reset" id="reset-btn">
+                                <i class="fas fa-redo"></i> Đặt Lại
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="pomodoro-info">
+                        <h4><i class="fas fa-info-circle"></i> Phương Pháp Pomodoro</h4>
+                        <p>Làm việc tập trung 25 phút, nghỉ 5 phút. Sau 4 phiên, nghỉ dài 15-30 phút.</p>
+                        <div style="margin-top: 15px;">
+                            <button id="customize-pomodoro-btn" class="btn btn-primary">
+                                <i class="fas fa-sliders-h"></i> Tùy chỉnh Pomodoro
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Statistics -->
+                <div class="stats-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i> Thống Kê Hôm Nay
+                    </h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="completed-tasks">0</div>
+                            <div class="stat-label">Nhiệm vụ hoàn thành</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value" id="pomodoro-count">0</div>
+                            <div class="stat-label">Pomodoro đã hoàn thành</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value" id="focus-time">0h 0m</div>
+                            <div class="stat-label">Thời gian tập trung</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value" id="productivity">0%</div>
+                            <div class="stat-label">Hiệu suất</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <button id="edit-stats-btn" class="btn secondary-btn">
+                            <i class="fas fa-edit"></i> Cập nhật thống kê
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Task Button -->
+    <div class="add-task-btn" id="add-task-btn">
+        <i class="fas fa-plus"></i>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <h4><i class="fas fa-check-circle"></i> Thành công!</h4>
+        <p id="notification-message">Thao tác đã được thực hiện thành công.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
